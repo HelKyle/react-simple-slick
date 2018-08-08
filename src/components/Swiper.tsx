@@ -4,11 +4,11 @@ import classNames from 'classnames';
 import Track from './Track';
 import { onTouchStart, onTouchMove, onTouchEnd } from '../helpers/events';
 import { Vector } from '../helpers/vector';
-import Dots from './Dots';
-import { BOOL_TYPE } from '../constants';
+import { BOOL_TYPE } from '../constants/index';
 import FadeStrategy from '../strategies/FadeStrategy';
 import SwipeStrategy from '../strategies/SwipeStrategy';
 import { PrevButton, NextButton } from './Navigation';
+import { default as defaultRenderDots } from './renderDots';
 
 
 export interface Props {
@@ -201,6 +201,7 @@ export default class Swiper extends React.PureComponent<Props, State> {
       event.preventDefault();
     }
   }
+
   handleTouchEnd = (event: Event) => {
     if (!this.state.dragging) {
       return false
@@ -224,6 +225,7 @@ export default class Swiper extends React.PureComponent<Props, State> {
       scrolling: BOOL_TYPE.Undefined
     });
   }
+
   handleTransitionEnd () {
     this.autoplay();
     const count = React.Children.count(this.props.children);
@@ -308,10 +310,26 @@ export default class Swiper extends React.PureComponent<Props, State> {
       ...postCloned
     ];
   }
+
   renderDots() {
+    const { current } = this.state;
     const count = React.Children.count(this.props.children);
-    return <Dots count={count} current={this.state.current} onChange={(newIndex) => this.goto(newIndex)} />
+    const dots = defaultRenderDots({ count, current });
+    const children = React.Children.map(dots, (child: any, index: number) => {
+      return React.cloneElement(child,
+        {
+          onClick: () => this.goto(index),
+        }
+      );
+    });
+    return (
+      <ul className="dots">
+        {children}
+      </ul>
+    )
+    // return <Dots count={count} current={this.state.current} onChange={(newIndex) => this.goto(newIndex)} />
   }
+
   renderNavigation() {
     return (
       <div className="navigation">

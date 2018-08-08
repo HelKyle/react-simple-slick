@@ -1,7 +1,6 @@
 import EffectInterface from './EffectInterface';
 import { Vector } from '../helpers/vector';
-import { Props, State } from '../components/Swiper';
-import React from 'react';
+
 
 export default class FadeStrategy extends EffectInterface {
   getSlideInitialStyle () {

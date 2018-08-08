@@ -1,6 +1,5 @@
 import EffectInterface from './EffectInterface';
 import { Vector } from '../helpers/vector';
-import React from 'react';
 
 export default class SwipeStrategy extends EffectInterface {
   getSlideInitialStyle () {
@@ -48,7 +47,7 @@ export default class SwipeStrategy extends EffectInterface {
     }
   }
   getCurrentState() {
-    const { props, state } = this.context;
+    const { state } = this.context;
     const { speed } = state;
 
     return {

@@ -1,5 +1,5 @@
-import Swiper, { Props, State } from '../components/Swiper';
 import React from 'react';
+import { Props, State } from '../components/Swiper';
 
 const throwError = (functionName: string) => {
   throw new Error(`children haven't implement the funciton named ${functionName}`);

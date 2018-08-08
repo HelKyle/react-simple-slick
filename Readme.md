@@ -1,2 +1,1 @@
-React Awesome Swiper
-
+React Simple Slick
